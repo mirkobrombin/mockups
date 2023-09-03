@@ -19,7 +19,7 @@ body {
     right: 0;
 }
 
-#topbar div {
+#topbar>div {
     padding: 5px 10px;
     color: #305087;
     font-weight: 600;
@@ -28,6 +28,9 @@ body {
     gap: 5px;
     position: relative;
     z-index: 1;
+    min-height: 20px;
+    justify-content: center;
+    transition: all 0.2s ease-in-out;
 }
 
 #topbar {
@@ -37,6 +40,7 @@ body {
     font-size: 16px;
     position: relative;
     z-index: 3;
+    align-items: flex-start;
 }
 
 #topbar .material-icons {
@@ -59,7 +63,7 @@ body {
     margin-bottom: 10px;
     height: auto;
     transform: translate(0, 100vh);
-    transition: all 0.3s ease-in-out;
+    transition: all 0.2s ease-in-out;
     display: none;
 }
 
@@ -76,7 +80,7 @@ body {
     overflow: hidden;
     padding-top: 10px;
     margin: 0 0 -10px 0;
-    transition: all 0.3s ease-in-out;
+    transition: all 0.2s ease-in-out;
     max-height: calc(100% - 70px);
     z-index: 2;
 }
@@ -88,7 +92,7 @@ body {
     background-color: transparent;
     border-radius: 8px;
     padding: 3px 3px 3px;
-    transition: background-color 0.3s ease-in-out;
+    transition: background-color 0.2s ease-in-out;
 }
 
 #pill {
@@ -98,7 +102,7 @@ body {
     height: 5px;
     flex-shrink: 0;
     transform: translate(0, 100vh);
-    transition: all 0.3s ease-in-out;
+    transition: all 0.2s ease-in-out;
     position: relative;
     margin: 0 0 10px 0;
 }
@@ -126,7 +130,7 @@ body {
     padding: 10px 10px 10px;
     width: 100%;
     text-align: center;
-    transition: background-color 0.3s ease-in-out;
+    transition: background-color 0.2s ease-in-out;
 }
 
 #overview {
@@ -136,7 +140,7 @@ body {
     padding: 50px;
     gap: 60px;
     max-width: 1020px;
-    transition: all 0.3s ease-in-out;
+    transition: all 0.2s ease-in-out;
     margin-top: 0;
     transform: translate(0, 100vh);
     display: none;
@@ -166,7 +170,7 @@ body {
     font-size: 15px;
     min-width: 300px;
     border-radius: 8px;
-    transition: background-color 0.3s ease-in-out;
+    transition: background-color 0.2s ease-in-out;
 }
 
 #toolbox input[type="search"]::placeholder {
@@ -227,6 +231,10 @@ body {
     background-color: #00000012;
 }
 
+#topbar>div:hover {
+    background-color: #a9caece1;
+}
+
 #toolbox input[type="search"]:hover {
     background-color: #98bce1;
 }
@@ -236,9 +244,80 @@ body {
     z-index: 1;
     display: none;
     transform: translate(0, 100vh);
-    transition: transform 0.3s ease-in-out;
+    transition: transform 0.2s ease-in-out;
 }
 
 #app img {
     pointer-events: none;
+}
+
+#topbar div.widget {
+    display: flex;
+    flex-direction: column;
+}
+
+#missionControl {
+    flex-direction: row;
+    justify-content: space-between;
+    max-width: 600px;
+    align-items: flex-start !important;
+    display: none;
+    transform: scale(0);
+    transition: transform 0.2s ease-in-out;
+    gap: 10px;
+    margin: 20px;
+}
+
+#calendar {
+    display: flex;
+    flex-direction: column;
+}
+
+#calendar>div {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    width: 100%;
+    gap: 10px;
+}
+
+#notifications {
+    display: flex !important;
+    flex-direction: column;
+    align-items: stretch !important;
+    gap: 10px;
+}
+
+#missionControl>div {
+    display: flex;
+    justify-content: flex-start;
+}
+
+#notifications div {
+    background-color: #30508714;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px;
+}
+
+#notifications div span {
+    font-weight: 500;
+    font-size: 15px;
+}
+
+#notifications div b {
+    font-weight: 600;
+}
+
+#calendar>div>span.active {
+    background-color: #305087;
+    border-radius: 100px;
+    color: #b4d6fa;
+}
+
+#calendar>div>span {
+    display: block;
+    text-align: center;
+    padding: 5px;
 }
