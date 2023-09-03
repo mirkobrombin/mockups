@@ -238,9 +238,11 @@
         panel.addEventListener('click', (e) => {
             if (e.target.id !== 'panel') return;
 
-            hideDock();
             hideOverview();
             keepShowing = false;
+
+            if (desktopIsFree) return;
+            hideDock();
         });
 
         function showOverview() {
@@ -274,14 +276,6 @@
                     app.style.display = 'none';
                 }
             });
-        });
-
-        document.addEventListener('keyup', (e) => {
-            if (e.keyCode === 27) {
-                hideDock();
-                hideOverview();
-                keepShowing = false;
-            }
         });
 
         showAppWindow.forEach((app) => {
@@ -335,6 +329,21 @@
             document.addEventListener('mouseup', () => {
                 isDragging = false;
             });
+        });
+
+        document.addEventListener('keyup', (e) => {
+            if (e.keyCode === 27) { // Esc
+                hideOverview();
+
+                if (desktopIsFree) return;
+                hideDock();
+                keepShowing = false;
+            }
+            if (e.keyCode === 16) { // Shift
+                hideDock();
+                showOverview();
+                keepShowing = true;
+            }
         });
     </script>
 </body>
