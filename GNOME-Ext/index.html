@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
-<body>
+<body id="body">
     <div id="alert">
         <span class="material-icons">warning</span>
         <span>This mockup requires full screen mode, press <code>F11</code> to proceed</span>
@@ -230,6 +230,7 @@
         const app = document.getElementById('app');
         const showCalendar = document.getElementById('showCalendar');
         const missionControl = document.getElementById('missionControl');
+        const body = document.querySelector('body');
 
         let isDragging = false;
         let mouseDownCount = 0;
@@ -260,6 +261,12 @@
 
             hidePill();
             hideDock();
+        });
+
+        body.addEventListener('click', (e) => {
+            if (e.target.id !== 'body') return;
+
+            hideMissionControl();
         });
 
         pill.addEventListener('click', () => {
