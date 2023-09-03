@@ -1,0 +1,220 @@
+@import url("reset.css");
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+body {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: url("design-is-rounded-rectangles-l.webp");
+    background-size: cover;
+    font-family: "Fira Sans", sans-serif;
+    /* background-position: center; */
+    background-repeat: no-repeat;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+#topbar div {
+    background-color: #B4D6FA;
+    padding: 5px 10px;
+    color: #305087;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    position: relative;
+    z-index: 1;
+}
+
+#topbar {
+    display: flex;
+    justify-content: space-between;
+    margin: 6px;
+    font-size: 16px;
+}
+
+#topbar .material-icons {
+    font-size: 20px;
+}
+
+.shell-element {
+    background-color: #b4d6fae1;
+    backdrop-filter: blur(10px);
+    border-radius: 8px;
+}
+
+#dock {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 7px 10px 4px;
+    gap: 10px;
+    box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.15);
+    margin-bottom: 10px;
+    height: auto;
+    transform: translate(0, 100vh);
+    transition: all 0.3s ease-in-out;
+    display: none;
+}
+
+#panel {
+    display: flex;
+    justify-content: flex-start;
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    overflow: hidden;
+    padding-top: 10px;
+    margin: 0 0 -10px 0;
+    transition: all 0.3s ease-in-out;
+    max-height: calc(100% - 70px);
+}
+
+#dock div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#pill {
+    border-radius: 20px;
+    background: #305087;
+    width: 73px;
+    height: 5px;
+    flex-shrink: 0;
+    transform: translate(0, 100vh);
+    transition: all 0.3s ease-in-out;
+    position: relative;
+    cursor: pointer;
+    margin: 0 0 10px 0;
+}
+
+#grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    gap: 56px 66px;
+    justify-items: center;
+    justify-content: center;
+}
+
+#grid div img {
+    height: 90px;
+}
+
+#grid div {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 5px;
+    background-color: transparent;
+    border-radius: 8px;
+    padding: 10px 10px 10px;
+    width: 100%;
+    text-align: center;
+}
+
+#overview {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px;
+    gap: 60px;
+    max-width: 1020px;
+    transition: all 0.3s ease-in-out;
+    margin-top: 0;
+    transform: translate(0, 100vh);
+    display: none;
+    box-shadow: 0px 4px 8px 0px rgb(0 0 0 / 22%);
+}
+
+#grid div span {
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+    line-height: 1.2;
+    display: block;
+}
+
+#toolbox {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#toolbox input[type="search"] {
+    border: 0;
+    outline: none;
+    background-color: #88ACD1;
+    padding: 13px;
+    font-size: 15px;
+    min-width: 300px;
+    border-radius: 8px;
+}
+
+#toolbox input[type="search"]::placeholder {
+    color: #F9F9FF;
+    text-align: center;
+}
+
+#toolbox .widget img {
+    height: 40px;
+}
+
+.fill {
+    flex: 1;
+}
+
+#toolbox .widget {
+    text-align: right;
+}
+
+#pill::before {
+    content: "";
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    bottom: -8px;
+    right: -8px;
+    display: block;
+}
+
+#panel.dock-hidden #pill {
+    margin-bottom: -76px;
+}
+
+#dock div img {
+    height: 48px;
+}
+
+#dock div span {
+    font-size: 35px;
+    color: #305087;
+}
+
+#dock div.widget img {
+    height: 36px;
+}
+
+#backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: -1;
+}
+
+#grid div:hover {
+    background-color: #00000012;
+}

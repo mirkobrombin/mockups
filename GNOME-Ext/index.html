@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="assets/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <div id="topbar">
+        <div class="shell-element">
+            <span>Desktop</span>
+        </div>
+        <div class="shell-element">
+            <span>Jun 16 09:26</span>
+        </div>
+        <div class="shell-element">
+            <span>en</span>
+            <span class="material-icons">wifi</span>
+            <span class="material-icons">volume_up</span>
+            <span class="material-icons">battery_charging_full</span>
+        </div>
+    </div>
+
+    <div id="backdrop"></div>
+
+    <div id="panel">
+        <div id="pill"></div>
+
+        <div id="dock" class="shell-element">
+            <div id="showApps">
+                <span class="material-icons">apps</span>
+            </div>
+            <div>
+                <img src="assets/firefox.svg" />
+            </div>
+            <div>
+                <img src="assets/nautilus.svg" />
+            </div>
+            <div>
+                <img src="assets/vscode.svg" />
+            </div>
+            <div>
+                <img src="assets/spotify.svg" />
+            </div>
+            <div>
+                <img src="assets/software.svg" />
+            </div>
+            <div class="widget">
+                <img src="assets/widget-weather.svg" />
+            </div>
+        </div>
+
+        <div id="overview" class="shell-element">
+            <div id="toolbox">
+                <div class="fill"></div>
+                <div>
+                    <input type="search" placeholder="Type to search" id="searchApps" />
+                </div>
+                <div class="widget fill">
+                    <img src="assets/widget-weather.svg" />
+                </div>
+            </div>
+
+            <div id="grid">
+                <div>
+                    <img src="assets/firefox.svg" />
+                    <span>Firefox</span>
+                </div>
+                <div>
+                    <img src="assets/nautilus.svg" />
+                    <span>Files</span>
+                </div>
+                <div>
+                    <img src="assets/vscode.svg" />
+                    <span>Visual Studio Code</span>
+                </div>
+                <div>
+                    <img src="assets/spotify.svg" />
+                    <span>Spotify</span>
+                </div>
+                <div>
+                    <img src="assets/software.svg" />
+                    <span>Software</span>
+                </div>
+                <div>
+                    <img src="assets/fonts.svg" />
+                    <span>Fonts</span>
+                </div>
+                <div>
+                    <img src="assets/icons.svg" />
+                    <span>Icon Library</span>
+                </div>
+                <div>
+                    <img src="assets/clocks.svg" />
+                    <span>Clocks</span>
+                </div>
+                <div>
+                    <img src="assets/text.svg" />
+                    <span>Text Editor</span>
+                </div>
+                <div>
+                    <img src="assets/music.svg" />
+                    <span>Music</span>
+                </div>
+                <div>
+                    <img src="assets/photo.svg" />
+                    <span>Photos</span>
+                </div>
+                <div>
+                    <img src="assets/roller.svg" />
+                    <span>Archives</span>
+                </div>
+                <div>
+                    <img src="assets/documents.svg" />
+                    <span>Documents</span>
+                </div>
+                <div>
+                    <img src="assets/emoji.svg" />
+                    <span>Characters</span>
+                </div>
+                <div>
+                    <img src="assets/calendar.svg" />
+                    <span>Calendar</span>
+                </div>
+                <div>
+                    <img src="assets/builder.svg" />
+                    <span>Builder</span>
+                </div>
+                <div>
+                    <img src="assets/bottles.svg" />
+                    <span>Bottles</span>
+                </div>
+                <div>
+                    <img src="assets/console.svg" />
+                    <span>Console</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const pill = document.getElementById('pill');
+        const panel = document.getElementById('panel');
+        const dock = document.getElementById('dock');
+        const overview = document.getElementById('overview');
+        const showApps = document.getElementById('showApps');
+        const searchApps = document.getElementById('searchApps');
+        const grid = document.getElementById('grid');
+        const backdrop = document.getElementById('backdrop');
+
+        let isDragging = false;
+        let mouseDownCount = 0;
+        let keepShowing = false;
+
+        document.addEventListener('mousemove', (e) => {
+            const mouseY = e.clientY;
+            const windowHeight = window.innerHeight;
+            if (mouseY >= (windowHeight - 10)) {
+                showPill();
+                mouseDownCount += 1;
+                if (mouseDownCount >= 100) {
+                    showDock();
+                }
+            }
+        });
+
+        panel.addEventListener('mouseleave', (e) => {
+            if (keepShowing) return;
+            mouseDownCount = 0;
+            hidePill();
+            hideDock();
+        });
+
+        function showPill() {
+            pill.style.transform = 'scale(1) translate(0, 0)';
+        }
+
+        function hidePill() {
+            pill.style.transform = '';
+        }
+
+        function showDock() {
+            dock.style.display = 'flex';
+            setTimeout(() => {
+                dock.style.transform = 'scale(1)  translate(0, 0)';
+            }, 100);
+        }
+
+        function hideDock(force = false) {
+            if (force) {
+                dock.style.display = 'none';
+            }
+
+            dock.style.transform = ' translate(0, 20rem)';
+            setTimeout(() => {
+                dock.style.display = 'none';
+            }, 100);
+
+        }
+
+        document.addEventListener('mouseup', () => {
+            isDragging = false;
+        });
+
+        showApps.addEventListener('click', () => {
+            hideDock(true);
+            showOverview();
+            keepShowing = true;
+        });
+
+        backdrop.addEventListener('click', () => {
+            hideOverview();
+            keepShowing = false;
+        });
+
+        function showOverview() {
+            searchApps.focus();
+            overview.style.display = 'flex';
+            setTimeout(() => {
+                overview.style.transform = 'scale(1)  translate(0, 0)';
+            }, 100);
+        }
+
+        function hideOverview() {
+            overview.style.transform = ' translate(0, 100vh)';
+            setTimeout(() => {
+                overview.style.display = 'none';
+            }, 100);
+        }
+
+        searchApps.addEventListener('keyup', (e) => {
+            const value = e.target.value.toLowerCase();
+            const apps = grid.querySelectorAll('div');
+            apps.forEach((app) => {
+                const name = app.querySelector('span').innerText.toLowerCase();
+                if (name.indexOf(value) > -1) {
+                    app.style.display = 'block';
+                } else {
+                    app.style.display = 'none';
+                }
+            });
+        });
+
+        document.addEventListener('keyup', (e) => {
+            if (e.keyCode === 27) {
+                hideDock();
+                hideOverview();
+                keepShowing = false;
+            }
+        });
+    </script>
+</body>
+
+</html>
