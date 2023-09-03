@@ -152,6 +152,7 @@
         let isDragging = false;
         let mouseDownCount = 0;
         let keepShowing = false;
+        let showingComponent = '';
 
         document.addEventListener('mousemove', (e) => {
             const mouseY = e.clientY;
@@ -172,6 +173,22 @@
             hideDock();
         });
 
+        pill.addEventListener('click', () => {
+            if (showingComponent === 'dock') {
+                hideDock();
+                showOverview();
+                return;
+            }
+
+            if (showingComponent === 'overview') {
+                hideOverview();
+                showingComponent = '';
+                return;
+            }
+
+            showDock();
+        });
+
         function showPill() {
             pill.style.transform = 'scale(1) translate(0, 0)';
         }
@@ -181,6 +198,7 @@
         }
 
         function showDock() {
+            showingComponent = 'dock';
             dock.style.display = 'flex';
             setTimeout(() => {
                 dock.style.transform = 'scale(1)  translate(0, 0)';
@@ -215,6 +233,7 @@
         });
 
         function showOverview() {
+            showingComponent = 'overview';
             searchApps.focus();
             overview.style.display = 'flex';
             setTimeout(() => {
