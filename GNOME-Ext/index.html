@@ -482,7 +482,8 @@
 
         toggleAlert(() => window.matchMedia('(display-mode: fullscreen)').matches);
 
-        setInterval(() => {
+        let notificationTimer;
+        notificationTimer = setInterval(() => {
             showNotification();
         }, 10000);
 
@@ -496,6 +497,7 @@
 
         notification.addEventListener('click', () => {
             hideNotification();
+            clearInterval(notificationTimer);
         });
 
     </script>
