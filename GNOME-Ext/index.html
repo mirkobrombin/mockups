@@ -13,9 +13,16 @@
         <span>This mockup requires full screen mode, press <code>F11</code> to proceed</span>
     </div>
 
+    <div id="notification">
+        <div class="shell-element">
+            <b>Hey!</b>
+            <span>Are you enjoying this mockup?</span>
+        </div>
+    </div>
+
     <div id="topbar">
         <div class="shell-element">
-            <span>Desktop</span>
+            <span id="curScope">Desktop</span>
         </div>
         <div class="shell-element widget" id="showCalendar">
             <span>Jun 16 09:26</span>
@@ -231,6 +238,8 @@
         const showCalendar = document.getElementById('showCalendar');
         const missionControl = document.getElementById('missionControl');
         const body = document.querySelector('body');
+        const curScope = document.getElementById('curScope');
+        const notification = document.getElementById('notification');
 
         let isDragging = false;
         let mouseDownCount = 0;
@@ -376,6 +385,7 @@
         });
 
         function showApp() {
+            curScope.innerText = 'Files';
             app.style.display = 'block';
             setTimeout(() => {
                 app.style.transform = 'scale(1)  translate(0, 0)';
@@ -471,6 +481,23 @@
         });
 
         toggleAlert(() => window.matchMedia('(display-mode: fullscreen)').matches);
+
+        setInterval(() => {
+            showNotification();
+        }, 10000);
+
+        function showNotification() {
+            notification.style.transform = 'translate(0, 0)';
+        }
+
+        function hideNotification() {
+            notification.style.transform = 'translate(0, -100vh)';
+        }
+
+        notification.addEventListener('click', () => {
+            hideNotification();
+        });
+
     </script>
 </body>
 

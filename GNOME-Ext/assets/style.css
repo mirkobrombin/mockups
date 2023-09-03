@@ -293,7 +293,7 @@ body {
 }
 
 #notifications div {
-    background-color: #30508714;
+    background-color: #9ac2eb;
     border-radius: 8px;
     display: flex;
     flex-direction: column;
@@ -351,4 +351,21 @@ body {
     border-radius: 8px;
     color: #000;
     padding: 7px;
+}
+
+#notification {
+    position: fixed;
+    top: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    transition: all 0.2s ease-in-out;
+    transform: translate(0, -100vh);
+}
+
+#notification div {
+    box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.15);
+    color: #305087;
+    padding: 12px 15px;
 }
