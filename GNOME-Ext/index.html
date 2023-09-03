@@ -8,6 +8,11 @@
 </head>
 
 <body>
+    <div id="alert">
+        <span class="material-icons">warning</span>
+        <span>This mockup requires full screen mode, press <code>F11</code> to proceed</span>
+    </div>
+
     <div id="topbar">
         <div class="shell-element">
             <span>Desktop</span>
@@ -445,6 +450,20 @@
                 missionControl.style.display = 'none';
             }, 100);
         }
+
+        function toggleAlert(status) {
+            if (status()) {
+                document.getElementById('alert').style.transform = 'translate(0, -150vh)';
+            } else {
+                document.getElementById('alert').style.transform = 'translate(0, 0)';
+            }
+        }
+
+        window.matchMedia('(display-mode: fullscreen)').addEventListener('change', ({ matches }) => {
+            toggleAlert(() => matches);
+        });
+
+        toggleAlert(() => window.matchMedia('(display-mode: fullscreen)').matches);
     </script>
 </body>
 
