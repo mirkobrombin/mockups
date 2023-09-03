@@ -23,12 +23,14 @@
         </div>
     </div>
 
-    <div id="backdrop"></div>
+    <div id="app">
+        <img src="assets/nautilus.png" />
+    </div>
 
     <div id="panel">
         <div id="pill"></div>
 
-        <div id="dock" class="shell-element">
+        <div id="dock" class="shell-element" style="display: flex; transform: translate(0, 0)">
             <div id="showApps">
                 <span class="material-icons">apps</span>
             </div>
@@ -147,14 +149,18 @@
         const showApps = document.getElementById('showApps');
         const searchApps = document.getElementById('searchApps');
         const grid = document.getElementById('grid');
-        const backdrop = document.getElementById('backdrop');
+        const showAppWindow = document.querySelectorAll('#dock > div:not(#showApps)');
+        const app = document.getElementById('app');
 
         let isDragging = false;
         let mouseDownCount = 0;
         let keepShowing = false;
-        let showingComponent = '';
+        let showingComponent = 'dock';
+        let desktopIsFree = true;
 
         document.addEventListener('mousemove', (e) => {
+            if (desktopIsFree) return;
+
             const mouseY = e.clientY;
             const windowHeight = window.innerHeight;
             if (mouseY >= (windowHeight - 10)) {
@@ -167,8 +173,11 @@
         });
 
         panel.addEventListener('mouseleave', (e) => {
+            if (desktopIsFree) return;
             if (keepShowing) return;
+
             mouseDownCount = 0;
+
             hidePill();
             hideDock();
         });
@@ -214,7 +223,6 @@
             setTimeout(() => {
                 dock.style.display = 'none';
             }, 100);
-
         }
 
         document.addEventListener('mouseup', () => {
@@ -227,7 +235,10 @@
             keepShowing = true;
         });
 
-        backdrop.addEventListener('click', () => {
+        panel.addEventListener('click', (e) => {
+            if (e.target.id !== 'panel') return;
+
+            hideDock();
             hideOverview();
             keepShowing = false;
         });
@@ -246,6 +257,10 @@
             setTimeout(() => {
                 overview.style.display = 'none';
             }, 100);
+
+            if (desktopIsFree) {
+                showDock();
+            }
         }
 
         searchApps.addEventListener('keyup', (e) => {
@@ -267,6 +282,59 @@
                 hideOverview();
                 keepShowing = false;
             }
+        });
+
+        showAppWindow.forEach((app) => {
+            app.addEventListener('click', () => {
+                hideDock();
+                hideOverview();
+                keepShowing = false;
+                desktopIsFree = false;
+                showApp();
+            });
+        });
+
+        function showApp() {
+            app.style.display = 'block';
+            setTimeout(() => {
+                app.style.transform = 'scale(1)  translate(0, 0)';
+            }, 100);
+        }
+
+        app.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            const app = e.target;
+            const appRect = app.getBoundingClientRect();
+            const appWidth = appRect.width;
+            const appHeight = appRect.height;
+            const mouseX = e.clientX;
+            const mouseY = e.clientY;
+            const appX = appRect.x;
+            const appY = appRect.y;
+            const offsetX = mouseX - appX;
+            const offsetY = mouseY - appY;
+
+            app.style.position = 'absolute';
+            app.style.left = `${appX}px`;
+            app.style.top = `${appY}px`;
+            app.style.width = `${appWidth}px`;
+            app.style.height = `${appHeight}px`;
+
+            document.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+
+                const mouseX = e.clientX;
+                const mouseY = e.clientY;
+                const newAppX = mouseX - offsetX;
+                const newAppY = mouseY - offsetY;
+
+                app.style.left = `${newAppX}px`;
+                app.style.top = `${newAppY}px`;
+            });
+
+            document.addEventListener('mouseup', () => {
+                isDragging = false;
+            });
         });
     </script>
 </body>
